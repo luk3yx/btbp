@@ -1,15 +1,15 @@
 def btbp(bot, trigger):
     n = trigger.split(" ")
+    meta = [bot, trigger]
     try:
         if len(n) < 1:
             raise NameError()
         cmd = int(n[0])
     except:
-        btbpreply(bot, "100 :Protocol mismatch.")
+        btbpreply(meta, "100 :Protocol mismatch.")
         return
     global btbpver
     global trustedbots
-    meta = [bot, trigger]
     if trigger.host in trustedbots.keys():
         privs = trustedbots[trigger.host]
     else:
