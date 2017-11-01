@@ -29,7 +29,7 @@ def btbp(bot, trigger):
             btbpreply(bot, "002 false :Permission denied.")
     
     elif cmd == 0: # PING
-        btbpreply(bot, "000 PONG {}".format(str.join(' ', n)))
+        btbpreply(bot, "000 PONG {}".format(str.join(' ', n[1:])))
     
     elif cmd == 5: # VERSION
         btbpreply(bot, "005 :Sopel/6.5.0")
