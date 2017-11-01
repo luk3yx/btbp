@@ -39,7 +39,7 @@ def btbp(bot, trigger):
         btbpreply(meta, "201 :.")
     
     elif cmd < 100:
-        btbpreply(meta, "101 :Invalid command: {}".format(str(cmd).zfill(3)))
+        btbpreply(meta, "101 {} :Invalid command".format(str(cmd).zfill(3)))
 
 def btbpreply(meta, message):
     meta[0].notice("\u0001BTBP {}\u0001".format(message), meta[1].nick)
