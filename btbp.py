@@ -5,7 +5,7 @@ def btbp(bot, trigger):
             raise NameError()
         cmd = int(n[0])
     except:
-        btbpreply(bot, "100: Protocol mismatch.")
+        btbpreply(bot, "100 :Protocol mismatch.")
         return
     global btbpver
     global trustedbots
@@ -22,7 +22,7 @@ def btbp(bot, trigger):
     elif cmd == 2: # MODE
         if len(n) < 4 or not n[1].startswith('#'):
             btbpreply(bot, "202 false :Bad parameters for setmode.")
-        elif 'admin' in privs or n[2] in privs:
+        elif 'admin' in privs or 'mode/' + n[2] in privs:
             bot.write(("MODE", n[1], n[2], n[3]))
             btbpreply(bot, "202 true :Done!")
         else:
