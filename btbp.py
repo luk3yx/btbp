@@ -14,28 +14,28 @@ def btbp(bot, trigger):
     else:
         privs = []
     if   cmd == 1: # PRIVS
-        btbpreply(bot, "001 :{}".format(privs))
+        btbpreply(bot, "201 :{}".format(privs))
     
     elif cmd == 3:
-        btbpreply(bot, "003 :{}".format(trigger.hostmask))
+        btbpreply(bot, "203 :{}".format(trigger.hostmask))
     
     elif cmd == 2: # MODE
         if len(n) < 4 or not n[1].startswith('#'):
-            btbpreply(bot, "002 false :Bad parameters for setmode.")
+            btbpreply(bot, "202 false :Bad parameters for setmode.")
         elif 'admin' in privs or n[2] in privs:
             bot.write(("MODE", n[1], n[2], n[3]))
-            btbpreply(bot, "002 true :Done!")
+            btbpreply(bot, "202 true :Done!")
         else:
-            btbpreply(bot, "002 false :Permission denied.")
+            btbpreply(bot, "202 false :Permission denied.")
     
     elif cmd == 0: # PING
-        btbpreply(bot, "000 PONG {}".format(str.join(' ', n[1:])))
+        btbpreply(bot, "200 PONG {}".format(str.join(' ', n[1:])))
     
     elif cmd == 5: # VERSION
-        btbpreply(bot, "005 :Sopel/6.5.0")
+        btbpreply(bot, "205 :Sopel/6.5.0")
     
     elif cmd == 1: # PREFIX
-        btbpreply(bot, "001 :.")
+        btbpreply(bot, "201 :.")
     
     else:
         btbpreply(bot, "101 :Invalid command: {}".format(cmd))
