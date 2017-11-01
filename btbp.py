@@ -1,4 +1,5 @@
 from numerics import *
+from sopel import module
 
 def btbp(bot, trigger):
     n = trigger.split(" ")
