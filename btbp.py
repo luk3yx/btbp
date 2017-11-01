@@ -1,3 +1,5 @@
+from numerics import *
+
 def btbp(bot, trigger):
     n = trigger.split(" ")
     meta = [bot, trigger]
@@ -42,4 +44,4 @@ def btbp(bot, trigger):
         btbpreply(meta, "101 {} :Invalid command".format(str(cmd).zfill(3)))
 
 def btbpreply(meta, message):
-    meta[0].notice("\u0001BTBP {}\u0001".format(message), meta[1].nick)
+    meta[0].notice("\1BTBP {}\1".format(message), meta[1].nick)
