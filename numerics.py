@@ -1,11 +1,11 @@
 # [CMD] {0xx,} Command Numerics
 
-CMD_PING           = 000     # Syntax: 000
-CMD_PRIVS          = 001     # Syntax: 001
-CMD_MODE           = 002     # Syntax: 002 #<channel> <mode> <args...>
-CMD_HOSTMASK       = 003     # Syntax: 003
-CMD_PREFIX         = 004     # Syntax: 004
-CMD_VERSION        = 005     # Syntax: 005
+CMD_PING           =   0     # Syntax: 000
+CMD_PRIVS          =   1     # Syntax: 001
+CMD_MODE           =   2     # Syntax: 002 #<channel> <mode> <args...>
+CMD_HOSTMASK       =   3     # Syntax: 003
+CMD_PREFIX         =   4     # Syntax: 004
+CMD_VERSION        =   5     # Syntax: 005
 
 # [ERR] {1xx,} Error Numerics
 
