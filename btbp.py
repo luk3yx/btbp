@@ -9,7 +9,7 @@ def btbp(bot, trigger):
             raise NameError()
         cmd = int(n[0])
     except:
-        btbpreply(meta)
+        btbpreply(meta, ERR_PROTO_MISMATCH)
         return
     meta[2] = cmd
     global btbpver
@@ -19,44 +19,51 @@ def btbp(bot, trigger):
     else:
         privs = []
     if   cmd == CMD_PRIVS:
-        btbpreply(meta, privs)
+        btbpreply(meta, RES_PRIV_LIST, privs)
     
     elif cmd == CMD_HOSTMASK:
-        btbpreply(meta, trigger.hostmask)
+        btbpreply(meta, RES_HOSTMASK, trigger.hostmask)
     
     elif cmd == CMD_MODE:
         if len(n) < 4 or not n[1].startswith('#'):
-            btbpreply(meta, [ERR_BAD_PARAMS])
+            btbpreply(meta, ERR_BAD_PARAMS)
         elif 'admin' in privs or 'mode' in privs or 'mode/' + n[2] in privs:
             bot.write(("MODE", n[1], n[2], n[3]))
             btbpreply(meta, RES_DONE)
         else:
-            btbpreply(meta, [ERR_PERM_DENIED, 'mode/' + n[2]])
+            btbpreply(meta, ERR_PERM_DENIED, '{} mode/{}'.format(str(CMD_MODE).zfill(3), n[2]))
     
     elif cmd == CMD_PING:
         args = str.join(' ', n[1:])
         if args == '':
             args = ':PONG'
-        btbpreply(meta, args)
+        btbpreply(meta, RES_PONG, args)
     
     elif cmd == CMD_VERSION:
-        btbpreply(meta, "Sopel/6.5.0")
+        btbpreply(meta, RES_VERSION, "Sopel/6.5.0")
     
     elif cmd == CMD_PREFIX:
-        btbpreply(meta, ".")
+        btbpreply(meta, RES_PREFIX, ".")
     
     elif cmd == CMD_UNIX:
+        from subprocess import check_output
         if len(n) < 2:
-            btbpreply(meta, [ERR_BAD_PARAMS])
+            btbpreply(meta, ERR_BAD_PARAMS)
+        elif n[1] == "fortune":
+            n = check_output('fortune').decode('utf-8')
+            n = n.replace("\n", " ").replace("\t", " ")
+            btbpreply(meta, RES_UNIX, 'fortune :{}'.format(n))
+        else:
+            btbpreply(meta, ERR_PERM_DENIED, str(CMD_UNIX).zfill(3) + ' *')
     
     elif cmd < 100:
-        btbpreply(meta, [ERR_INV_COMMAND])
+        btbpreply(meta, ERR_INV_COMMAND)
 
-def btbpreply(meta, message = None):
+def btbpreply(meta, cmd, message = None):
     if len(meta) < 3:
         meta[2] = 100
-    elif meta[2] < 100:
-        meta[2] = meta[2] + 200
+    if message == None:
+        message = meta[2]
     responses = {
         ERR_PROTO_MISMATCH: ":Protocol mismatch.",
         ERR_INV_COMMAND: "{} :Invalid command.",
@@ -69,18 +76,13 @@ def btbpreply(meta, message = None):
         RES_PREFIX:      ":{}",
         RES_VERSION:     ":{}",
     }
-    if type(message) == list and message[0] == True and len(message) > 0:
-        n = message[0]
-        if len(message) > 1:
-            meta[2] = '{} {}'.format(meta[2], message[1])
-        message = meta[2]
-        meta[2] = n
-        del n
-    elif not message or type(message) != str:
+    if not message:
         message = ''
-    if meta[2] in responses.keys():
-        message = responses[meta[2]].format(message)
-    meta[0].notice("\1BTBP {} {}\1".format(str(meta[2]).zfill(3), message), meta[1].nick)
+    if type(message) == int:
+        message = str(message).zfill(3)
+    if cmd in responses.keys():
+        message = responses[cmd].format(message)
+    meta[0].notice("\1BTBP {} {}\1".format(str(cmd).zfill(3), message), meta[1].nick)
 
 # Check if already loaded
 if 'loaded' in globals().keys():
