@@ -54,7 +54,7 @@ def btbp(bot, trigger):
             n = n.replace("\n", " ").replace("\t", " ")
             btbpreply(meta, RES_UNIX, 'fortune :{}'.format(n))
         else:
-            btbpreply(meta, ERR_PERM_DENIED, str(CMD_UNIX).zfill(3) + ' *')
+            btbpreply(meta, ERR_BAD_PARAMS)
     
     elif cmd < 100:
         btbpreply(meta, ERR_INV_COMMAND)
