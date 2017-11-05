@@ -76,7 +76,7 @@ def btbpreply(meta, message = None):
         del n
     elif not message or type(message) != str:
         message = ''
-    if cmd in responses.keys():
+    if meta[2] in responses.keys():
         message = responses[cmd].format(message)
     meta[0].notice("\1BTBP {} {}\1".format(str(meta[2].zfill(3)), message), meta[1].nick)
 
