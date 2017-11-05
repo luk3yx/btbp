@@ -78,7 +78,7 @@ def btbpreply(meta, message = None):
         message = ''
     if meta[2] in responses.keys():
         message = responses[cmd].format(message)
-    meta[0].notice("\1BTBP {} {}\1".format(str(meta[2].zfill(3)), message), meta[1].nick)
+    meta[0].notice("\1BTBP {} {}\1".format(str(meta[2]).zfill(3), message), meta[1].nick)
 
 # Check if already loaded
 if 'loaded' in globals().keys():
