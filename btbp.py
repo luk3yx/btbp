@@ -81,7 +81,7 @@ def btbpreply(meta, message = None):
     meta[0].notice("\1BTBP {} {}\1".format(str(meta[2].zfill(3)), message), meta[1].nick)
 
 # Check if already loaded
-if loaded in globals().keys():
+if 'loaded' in globals().keys():
     import importlib
     importlib.reload(importlib.import_module("numerics"))
     from numerics import *
