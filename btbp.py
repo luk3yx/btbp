@@ -55,6 +55,8 @@ def btbp(bot, trigger):
 def btbpreply(meta, message = None):
     if len(meta) < 3:
         meta[2] = 100
+    elif meta[2] < 100:
+        meta[2] = meta[2] + 200
     responses = {
         ERR_PROTO_MISMATCH: ":Protocol mismatch.",
         ERR_INV_COMMAND: "{} :Invalid command.",
