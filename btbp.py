@@ -81,5 +81,5 @@ def btbpreply(meta, message = None):
     meta[0].notice("\1BTBP {} {}\1".format(str(meta[2].zfill(3)), message), meta[1].nick)
 
 def reload():
-    import importlib.reload
-    importlib.reload(numerics)
+    from importlib import reload as rreload
+    rreload(numerics)
