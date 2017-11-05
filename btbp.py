@@ -79,3 +79,7 @@ def btbpreply(meta, message = None):
     if cmd in responses.keys():
         message = responses[cmd].format(message)
     meta[0].notice("\1BTBP {} {}\1".format(str(meta[2].zfill(3)), message), meta[1].nick)
+
+def reload():
+    import importlib.reload
+    importlib.reload(numerics)
