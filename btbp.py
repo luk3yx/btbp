@@ -49,10 +49,12 @@ def btbp(bot, trigger):
         from subprocess import check_output
         if len(n) < 2:
             btbpreply(meta, ERR_BAD_PARAMS)
-        elif n[1] == "fortune":
-            n = check_output('fortune').decode('utf-8')
+        elif n[1] == "fortune": # Comment this whole block out to disable the
+            n = check_output('fortune').decode('utf-8') # fortune command.
             n = n.replace("\n", " ").replace("\t", " ")
             btbpreply(meta, RES_UNIX, 'fortune :{}'.format(n))
+        elif n[1] == "rev":
+            btbpreply(meta, RES_UNIX, 'rev :{}'.format(str.join(' ', n[2:])[::-1]))
         else:
             btbpreply(meta, ERR_BAD_PARAMS)
     
