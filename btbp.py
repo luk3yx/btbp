@@ -27,11 +27,11 @@ def btbp(bot, trigger):
     elif cmd == CMD_MODE:
         if len(n) < 4 or not n[1].startswith('#'):
             btbpreply(meta, ERR_BAD_PARAMS)
-        elif 'admin' in privs or 'mode' in privs or 'mode/' + n[2] in privs:
+        elif 'admin' in privs or 'mode' in privs or 'mode/' + n[2] in privs or 'mode/{}@{}'.format(n[2], n[1]) in privs or 'mode@' + n[1] in privs:
             bot.write(("MODE", n[1], n[2], n[3]))
             btbpreply(meta, RES_DONE)
         else:
-            btbpreply(meta, ERR_PERM_DENIED, '{} mode/{}'.format(str(CMD_MODE).zfill(3), n[2]))
+            btbpreply(meta, ERR_PERM_DENIED, '{} mode/{}@{}'.format(str(CMD_MODE).zfill(3), n[2], n[1]))
     
     elif cmd == CMD_PING:
         args = str.join(' ', n[1:])
