@@ -1,4 +1,4 @@
-from numerics import *
+from btbp_numerics import *
 #from sopel import module
 
 def btbp(bot, trigger):
@@ -20,10 +20,10 @@ def btbp(bot, trigger):
         privs = []
     if   cmd == CMD_PRIVS:
         btbpreply(meta, RES_PRIV_LIST, privs)
-    
+
     elif cmd == CMD_HOSTMASK:
         btbpreply(meta, RES_HOSTMASK, trigger.hostmask)
-    
+
     elif cmd == CMD_MODE:
         if len(n) < 4 or not n[1].startswith('#'):
             btbpreply(meta, ERR_BAD_PARAMS)
@@ -32,19 +32,19 @@ def btbp(bot, trigger):
             btbpreply(meta, RES_DONE)
         else:
             btbpreply(meta, ERR_PERM_DENIED, '{} mode/{}@{}'.format(str(CMD_MODE).zfill(3), n[2], n[1]))
-    
+
     elif cmd == CMD_PING:
         args = str.join(' ', n[1:])
         if args == '':
             args = ':PONG'
         btbpreply(meta, RES_PONG, args)
-    
+
     elif cmd == CMD_VERSION:
         btbpreply(meta, RES_VERSION, "Sopel/6.5.0")
-    
+
     elif cmd == CMD_PREFIX:
         btbpreply(meta, RES_PREFIX, ".")
-    
+
     elif cmd == CMD_UNIX:
         from subprocess import check_output
         if len(n) < 2:
@@ -57,7 +57,7 @@ def btbp(bot, trigger):
             btbpreply(meta, RES_UNIX, 'rev :{}'.format(str.join(' ', n[2:])[::-1]))
         else:
             btbpreply(meta, ERR_BAD_PARAMS)
-    
+
     elif cmd < 100:
         btbpreply(meta, ERR_INV_COMMAND)
 
@@ -66,18 +66,6 @@ def btbpreply(meta, cmd, message = None):
         meta[2] = 100
     if message == None:
         message = meta[2]
-    responses = {
-        ERR_PROTO_MISMATCH: ":Protocol mismatch.",
-        ERR_INV_COMMAND: "{} :Invalid command.",
-        ERR_BAD_PARAMS:  "{} :Bad parameters.",
-        ERR_PERM_DENIED: "{} :Permission denied.",
-        
-        RES_PRIV_LIST:   ":{}",
-        RES_DONE:        "{} :Done!",
-        RES_HOSTMASK:    ":{}",
-        RES_PREFIX:      ":{}",
-        RES_VERSION:     ":{}",
-    }
     if not message:
         message = ''
     if type(message) == int:

@@ -24,3 +24,18 @@ RES_HOSTMASK       = 203     # Format: 203 nick!user@host
 RES_PREFIX         = 204     # Format: 204 :<PREFIX>
 RES_VERSION        = 205     # Format: 205 :<VERSION>
 RES_UNIX           = 206     # Format: 206 <command> :<result>
+
+# Human-readable replies
+
+responses = {
+    ERR_PROTO_MISMATCH: ":Protocol mismatch.",
+    ERR_INV_COMMAND: "{} :Invalid command.",
+    ERR_BAD_PARAMS:  "{} :Bad parameters.",
+    ERR_PERM_DENIED: "{} :Permission denied.",
+
+    RES_PRIV_LIST:   ":{}",
+    RES_DONE:        "{} :Done!",
+    RES_HOSTMASK:    ":{}",
+    RES_PREFIX:      ":{}",
+    RES_VERSION:     ":{}",
+}
