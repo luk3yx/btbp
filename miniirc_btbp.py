@@ -116,6 +116,7 @@ def Handler(*numerics, default = False):
                 handlers[numeric] = []
             if func not in handlers[numeric]:
                 handlers[numeric].append(func)
+        return func
     return _
 
 # Launch BTBP handlers
@@ -184,3 +185,5 @@ def _handler(irc, hostmask, args):
 @Handler(CMD_VERSION, default = True)
 def _handler(irc, hostmask, args):
     irc.btbp(hostmask[0], RES_VERSION, miniirc.version)
+
+del _handler
